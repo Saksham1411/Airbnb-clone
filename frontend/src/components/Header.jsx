@@ -13,6 +13,7 @@ import Backdrop from "./Backdrop";
 import Signin from "./Signin";
 import { UserContext } from "@/context/UserContext";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   const [showLogin, setShowLogin] = useState(false);
@@ -120,6 +121,9 @@ const Header = () => {
                 Welcome: {"  "}
                 {user.fullName}
               </DropdownMenuLabel>
+              <Link to={'/account'}>
+                <DropdownMenuItem>Account</DropdownMenuItem>
+              </Link>
             </>
           )}
           <DropdownMenuSeparator />

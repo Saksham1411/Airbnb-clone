@@ -1,16 +1,19 @@
-import { useState } from "react";
+import { Route, Routes } from "react-router-dom";
 import Header from "./components/Header";
-import Login from "./components/Login";
 import axios from "axios";
+import AccountPage from "./pages/AccountPage";
 function App() {
-  
-  axios.defaults.baseURL = 'http://localhost:4000';
+  axios.defaults.baseURL = "http://localhost:4000";
   axios.defaults.withCredentials = true;
 
   return (
     <div>
       <Header></Header>
-      {/* <Login></Login> */}
+      <Routes>
+        <Route path="/account" element={<AccountPage />} />
+        <Route path="/account/:subpage?" element={<AccountPage />} />
+        {/* <Route path="/account/" element={<AccountPage />} /> */}
+      </Routes>
     </div>
   );
 }
