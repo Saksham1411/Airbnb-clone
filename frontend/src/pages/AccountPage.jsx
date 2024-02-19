@@ -1,3 +1,4 @@
+import Places from "@/components/Places";
 import { UserContext } from "@/context/UserContext";
 import React, { useContext } from "react";
 import { Link, Navigate, useParams } from "react-router-dom";
@@ -35,17 +36,16 @@ const AccountPage = () => {
           My Accommodations
         </Link>
       </nav>
-      {subpage==='profile' && (
+      {subpage === "profile" && (
         <div className="flex flex-col items-center gap-4">
-            <div className="text-2xl font-bold">Account details</div>
-            <div className="text-lg">
+          <div className="text-2xl font-bold">Account details</div>
+          <div className="text-lg">
             <div>Email: {user.email}</div>
             <div>Name: {user.fullName}</div>
-            </div>
+          </div>
         </div>
-      )
-
-      }
+      )}
+      {subpage === "places" && <Places/>}
     </div>
   );
 };
