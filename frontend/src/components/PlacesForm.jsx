@@ -1,10 +1,11 @@
-import React, { useState } from "react";
-import { Link, Navigate, useParams } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
 import Perks from "./Perks";
 import axios from "axios";
 import PhotosUploader from "./PhotosUploader";
-
 const PlacesForm = () => {
+  const { action } = useParams();
+
   const [title, setTitle] = useState("");
   const [address, setAddress] = useState("");
   const [addedPhotos, setAddedPhotos] = useState([]);
@@ -16,7 +17,26 @@ const PlacesForm = () => {
   const [checkOut, setCheckOut] = useState("");
   const [maxGuests, setMaxGuests] = useState(1);
   const [redirect, setRedirect] = useState("");
-  
+
+  if (action != "new") {
+    useEffect(() => {
+      const getData = async () => {
+        const {data} = await axios.get("/places/"+action);
+        console.log(data);
+        setTitle(data.title);
+        setAddress(data.address);
+        setAddedPhotos(data.photos);
+        setDescription(data.description);
+        setPerks(data.perks);
+        setExtraInfo(data.extraInfo);
+        setCheckOut(data.checkIn);
+        setcheckIn(data.checkIn);
+        setMaxGuests(data.maxGuests);
+      };
+
+      getData();
+    }, []);
+  }
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -31,12 +51,20 @@ const PlacesForm = () => {
       checkOut,
       maxGuests,
     };
-    const { data } = await axios.post("/places", reqBody);
-    console.log(data);
-    setRedirect("/account");
+
+    if (action!='new') {
+      const {data} = await axios.put(`/places/${action}`,reqBody);
+      console.log(data);
+      
+    }else{
+      const { data } = await axios.post("/places", reqBody);
+    }
+    setRedirect("/account/places");
   };
-  if(redirect){
-    return <Navigate to={"/account/places"}/>
+
+
+  if (redirect) {
+    return <Navigate to={"/account/places"} />;
   }
   return (
     <>
