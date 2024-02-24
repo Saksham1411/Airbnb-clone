@@ -2,20 +2,31 @@ const express = require('express');
 const router = express.Router();
 const Places = require('../models/Places');
 const jwt = require('jsonwebtoken');
+
 router.post('/places', async (req, res) => {
     const { token } = req.cookies;
     const payload = jwt.verify(token, process.env.JWT_SECRET);
-    const { title, address, addedPhotos: photos, description, perks, extraInfo, checkIn, checkOut, maxGuests } = req.body;
+    const { title, address, addedPhotos: photos, description, perks, extraInfo, checkIn, checkOut, maxGuests,price } = req.body;
     console.log(req.body);
     const place = await Places.create({
         owner: payload.userId,
         title, address, photos,
-        description, perks, extraInfo, checkIn, checkOut, maxGuests
+        description, perks, extraInfo, checkIn, checkOut, maxGuests,price
     })
     res.send(place);
 })
 
-router.get('/places', async (req, res) => {
+// all places
+router.get('/places',async(req,res)=>{
+    const places = await Places.find({});
+    console.log('fefew');
+    res.json({places});
+
+})
+
+
+//places for specific user
+router.get('/user-places', async (req, res) => {
     const { token } = req.cookies;
     if (!token) {
         return res.send('Not Authorized');
@@ -37,7 +48,7 @@ router.put('/places/:placeId',async(req,res)=>{
     const { token } = req.cookies;
     const {placeId} = req.params;
     console.log(placeId);
-    const { title, address, addedPhotos: photos, description, perks, extraInfo, checkIn, checkOut, maxGuests } = req.body;
+    const { title, address, addedPhotos: photos, description, perks, extraInfo, checkIn, checkOut, maxGuests,price } = req.body;
     if (!token) {
         return res.send('Not Authorized');
     }
@@ -48,7 +59,7 @@ router.put('/places/:placeId',async(req,res)=>{
         await Places.findOneAndUpdate({_id:placeId},{
             owner: userId,
             title, address, photos,
-            description, perks, extraInfo, checkIn, checkOut, maxGuests
+            description, perks, extraInfo, checkIn, checkOut, maxGuests,price
         })
         console.log('done');
         return res.send('updated');

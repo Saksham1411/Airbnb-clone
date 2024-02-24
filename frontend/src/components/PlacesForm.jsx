@@ -15,7 +15,8 @@ const PlacesForm = () => {
   const [extraInfo, setExtraInfo] = useState("");
   const [checkIn, setcheckIn] = useState("");
   const [checkOut, setCheckOut] = useState("");
-  const [maxGuests, setMaxGuests] = useState(1);
+  const [maxGuests, setMaxGuests] = useState(1); 
+  const [price, setPrice] = useState(100); 
   const [redirect, setRedirect] = useState("");
 
   if (action != "new") {
@@ -32,6 +33,7 @@ const PlacesForm = () => {
         setCheckOut(data.checkIn);
         setcheckIn(data.checkIn);
         setMaxGuests(data.maxGuests);
+        setPrice(data.price);
       };
 
       getData();
@@ -50,6 +52,7 @@ const PlacesForm = () => {
       checkIn,
       checkOut,
       maxGuests,
+      price
     };
 
     if (action!='new') {
@@ -69,7 +72,7 @@ const PlacesForm = () => {
   return (
     <>
       <form
-        className="flex flex-col gap-1 m-auto mb-12 w-1/2 "
+        className="flex flex-col gap-2 m-auto mb-12 w-1/2 "
         onSubmit={submitHandler}
       >
         <h1 className="text-2xl">Title</h1>
@@ -159,6 +162,15 @@ const PlacesForm = () => {
             />
           </div>
         </div>
+        <h1 className="text-2xl">Price per night</h1>
+        {/* <p className="text-sm text-gray-400">Address to this place</p> */}
+        <input
+          type="text"
+          placeholder="price per night"
+          className="border px-4 py-1 rounded-xl mb-2"
+          value={price}
+          onChange={(e) => setPrice(e.target.value)}
+        />
         <button
           type="submit"
           className="mt-4 py-2 px-4 bg-primary rounded-full text-white"

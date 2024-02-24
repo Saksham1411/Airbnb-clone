@@ -14,7 +14,7 @@ const Places = () => {
   const [places, setPlaces] = useState([]);
   useEffect(() => {
     async function getData() {
-      const { data } = await axios.get("/places");
+      const { data } = await axios.get("/user-places");
       // console.log(data);
       setPlaces(data);
     }
@@ -39,9 +39,9 @@ const Places = () => {
               places.map((place) => (
                 <Link
                   to={"/account/places/" + place._id}
-                  className="bg-red-100 rounded-xl mx-12 flex p-1 gap-2"
+                  className=" rounded-xl mx-12 flex p-1 gap-2"
                 >
-                  <div className="flex w-32 h-32">
+                  <div className="flex w-32 h-32 shrink-0">
                     <img
                       src={"http://localhost:4000" + place.photos[0]}
                       alt=""
@@ -50,7 +50,7 @@ const Places = () => {
                   </div>
                   <div className="grow-0 shrink">
                     <h1 className="text-2xl">{place.title}</h1>
-                    <p className="text-sm mt-2">{place.description}</p>
+                    <p className="text-sm mt-2 text-">{place.description}</p>
                   </div>
                 </Link>
               ))}
