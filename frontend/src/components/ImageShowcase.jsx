@@ -35,6 +35,7 @@ const ImageShowcase = ({setShowAllImages,place}) => {
           onClick={() => setShowAllImages(true)}
           className="absolute right-2 bottom-2 bg-white px-2 py-1 rounded-lg shadow-md"
         >
+          <i class="fa-solid fa-grip mr-1"></i>
           Show all photos
         </button>
       </div>

@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const Places = require('../models/Places');
+const Places = require('../models/Place');
 const jwt = require('jsonwebtoken');
 
 router.post('/places', async (req, res) => {

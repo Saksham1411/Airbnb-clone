@@ -1,3 +1,4 @@
+import Bookings from "@/components/Bookings";
 import Places from "@/components/Places";
 import { UserContext } from "@/context/UserContext";
 import React, { useContext } from "react";
@@ -46,6 +47,7 @@ const AccountPage = () => {
         </div>
       )}
       {subpage === "places" && <Places/>}
+      {subpage === "bookings" && <Bookings/>}
     </div>
   );
 };

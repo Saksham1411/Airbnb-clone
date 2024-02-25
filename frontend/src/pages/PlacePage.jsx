@@ -88,6 +88,18 @@ const PlacePage = () => {
         <h2 className="text-xl font-bold mb-2">Extra Info</h2>
         {place.extraInfo}
       </div>
+      <div>
+        <h2 className="text-xl font-bold my-2">Perks</h2>
+        <div className="flex flex-wrap gap-2">
+          {place.perks.length > 0 &&
+            place.perks.map((perk) => (
+              <div className="border border-gray-400 rounded-xl px-6 font-semibold py-2 uppercase">
+                {perk}
+              </div>
+            ))}
+        </div>
+      </div>
+      
     </div>
   );
 };

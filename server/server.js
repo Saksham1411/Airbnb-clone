@@ -5,6 +5,7 @@ const cors = require('cors');
 const userRoutes = require('./routes/user');
 const imageRoute = require('./routes/uploadImages');
 const placeRoute = require('./routes/places');
+const bookingRoute = require('./routes/booking');
 const cookieParser = require('cookie-parser');
 
 const app = express();
@@ -20,6 +21,7 @@ app.use(cors({
 app.use('/',userRoutes);
 app.use('/',imageRoute);
 app.use('/',placeRoute);
+app.use('/',bookingRoute);
 
 
 mongoose.connect('mongodb://127.0.0.1:27017/airBnB').then(()=>console.log('connected'));
