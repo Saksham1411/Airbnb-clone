@@ -7,7 +7,7 @@ router.post('/places', async (req, res) => {
     const { token } = req.cookies;
     const payload = jwt.verify(token, process.env.JWT_SECRET);
     const { title, address, addedPhotos: photos, description, perks, extraInfo, checkIn, checkOut, maxGuests,price } = req.body;
-    console.log(req.body);
+    // console.log(req.body);
     const place = await Places.create({
         owner: payload.userId,
         title, address, photos,
@@ -19,7 +19,7 @@ router.post('/places', async (req, res) => {
 // all places
 router.get('/places',async(req,res)=>{
     const places = await Places.find({});
-    console.log('fefew');
+    // console.log('fefew');
     res.json({places});
 
 })
@@ -47,21 +47,21 @@ router.get('/places/:placeId',async(req,res)=>{
 router.put('/places/:placeId',async(req,res)=>{
     const { token } = req.cookies;
     const {placeId} = req.params;
-    console.log(placeId);
+    // console.log(placeId);
     const { title, address, addedPhotos: photos, description, perks, extraInfo, checkIn, checkOut, maxGuests,price } = req.body;
     if (!token) {
         return res.send('Not Authorized');
     }
     const { userId } = jwt.verify(token, process.env.JWT_SECRET);
     const place = await Places.findOne({_id:placeId});
-    console.log(place.owner,"  ",userId);
+    // console.log(place.owner,"  ",userId);
     if(place.owner.equals(userId)){
         await Places.findOneAndUpdate({_id:placeId},{
             owner: userId,
             title, address, photos,
             description, perks, extraInfo, checkIn, checkOut, maxGuests,price
         })
-        console.log('done');
+        // console.log('done');
         return res.send('updated');
 
     }

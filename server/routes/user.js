@@ -34,6 +34,16 @@ router.post('/login', async (req, res) => {
 
 })
 
+router.get('/profile',async(req,res)=>{
+    const {token} = req.cookies;
+    if(!token) return res.status(500).send('token not find');
+    const payload = jwt.verify(token,process.env.JWT_SECRET);
+
+    const user = await User.findOne({ _id:payload.userId });
+
+    res.send(user);
+})
+
 router.post('/logout',async(req,res)=>{
     res.clearCookie("token").status(200).send('logout');
 })

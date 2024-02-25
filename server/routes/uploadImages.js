@@ -6,7 +6,7 @@ const fs = require('fs');
 
 router.post('/uploadByLink', async (req, res) => {
     const { link } = req.body;
-    console.log(link);
+    // console.log(link);
     const newName = Date.now()+'.jpg';
     options = {
         url: link,

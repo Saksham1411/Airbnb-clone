@@ -11,11 +11,7 @@ const Login = ({ onClose, onSignin }) => {
       e.preventDefault();
       const res = await axios.post('/login',{email,password});
       const data = await res.data.user;
-      console.log(data);
       setUser(data);
-      setEmail('');
-      setPassword('');
-      localStorage.setItem("user",JSON.stringify(data));
       onClose(false);
     } catch (error) {
       console.log(error);
