@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import PlacesForm from "./PlacesForm";
 import axios from "axios";
 import AccountPage from "@/pages/AccountPage";
 import PlacePage from "@/pages/PlacePage";
 
 const Places = () => {
-
   // const param = useParams();
   const { action } = useParams();
   // console.log(param);
@@ -20,8 +24,17 @@ const Places = () => {
     }
 
     getData();
-  }, [action]);
+  }, [action,places]);
   // console.log(places);
+
+  const deletePlace = async (e,placeId)=>{
+    e.preventDefault();
+    // console.log(placeId.placeId);
+    await axios.delete(`/places/${placeId.placeId}`);
+    // console.log(res);
+    setPlaces([]);
+  }
+
   return (
     <div>
       {action === undefined && (
@@ -39,7 +52,7 @@ const Places = () => {
               places.map((place) => (
                 <Link
                   to={"/account/places/" + place._id}
-                  className=" rounded-xl mx-12 flex p-1 gap-2"
+                  className=" rounded-xl mx-12 flex p-1 gap-2 relative"
                 >
                   <div className="flex w-32 h-32 shrink-0">
                     <img
@@ -52,13 +65,24 @@ const Places = () => {
                     <h1 className="text-2xl">{place.title}</h1>
                     <p className="text-sm mt-2 text-">{place.description}</p>
                   </div>
+                  <TooltipProvider delayDuration={'50'}>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <button onClick={(e)=>deletePlace(e,{placeId:place._id})} className="absolute right-0 p-2 px-3 mx-2 bg-gray-200 rounded-full">
+                          <i className="fa-solid fa-trash text-gray-800"></i>
+                        </button>
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p>Remove this place</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
                 </Link>
               ))}
           </div>
         </>
       )}
       {action != undefined && <PlacesForm />}
-
     </div>
   );
 };

@@ -68,4 +68,12 @@ router.put('/places/:placeId',async(req,res)=>{
     res.send('bad request');
 })
 
+//delete a specific page
+router.delete('/places/:placeId',async(req,res)=>{
+    const {placeId} = req.params;
+
+    const place = await Places.deleteOne({_id:placeId});
+    res.send('delete');
+})
+
 module.exports = router;

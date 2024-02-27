@@ -99,7 +99,11 @@ const PlacePage = () => {
             ))}
         </div>
       </div>
+      <div>
+      <h2 className="text-xl font-bold my-2">Reviews</h2>
       
+
+      </div>
     </div>
   );
 };
