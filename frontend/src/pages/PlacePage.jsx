@@ -1,7 +1,9 @@
 import BookingForm from "@/components/BookingForm";
 import ImageShowcase from "@/components/ImageShowcase";
+import Review from "@/components/Review";
+import { UserContext } from "@/context/UserContext";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 const PlacePage = () => {
@@ -9,7 +11,9 @@ const PlacePage = () => {
 
   const [place, setPlace] = useState(null);
   const [showAllImages, setShowAllImages] = useState(false);
-  console.log(place);
+  // console.log(place);
+
+  const{user}=useContext(UserContext);
   useEffect(() => {
     const getPlace = async () => {
       if (!placeId) return;
@@ -99,11 +103,7 @@ const PlacePage = () => {
             ))}
         </div>
       </div>
-      <div>
-      <h2 className="text-xl font-bold my-2">Reviews</h2>
-      
-
-      </div>
+      <Review placeId={place._id}/>
     </div>
   );
 };

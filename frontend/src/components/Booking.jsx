@@ -11,7 +11,7 @@ const Booking = () => {
   useEffect(() => {
     const getBooking = async () => {
       setLoading(true);
-      console.log("gggg");
+      // console.log("gggg");
       const { data } = await axios.get("/booking/" + action);
       setBookings(data);
       console.log(booking);
