@@ -5,7 +5,7 @@ import AccountPage from "./pages/AccountPage";
 import PlacePage from "./pages/PlacePage";
 import IndexPage from "./pages/IndexPage";
 function App() {
-  axios.defaults.baseURL = "http://localhost:4000";
+  axios.defaults.baseURL = import.meta.env.VITE_BACKEND;
   axios.defaults.withCredentials = true;
 
   return (

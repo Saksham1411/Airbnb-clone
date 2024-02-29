@@ -28,7 +28,7 @@ const Bookings = () => {
               >
                 <div className="h-fit w-40">
                   <img
-                    src={"http://localhost:4000" + booking.place.photos[0]}
+                    src={import.meta.env.VITE_BACKEND + booking.place.photos[0]}
                     alt=""
                     className=" object-cover rounded-xl"
                   />

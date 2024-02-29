@@ -46,7 +46,7 @@ const PlacePage = () => {
             place.photos.map((photo) => (
               <div className="flex justify-center">
                 <img
-                  src={"http://localhost:4000" + photo}
+                  src={import.meta.env.VITE_BACKEND + photo}
                   alt=""
                   className="lg:max-w-[50%]"
                 />
@@ -70,11 +70,11 @@ const PlacePage = () => {
       <ImageShowcase setShowAllImages={setShowAllImages} place={place} />
       <div className="flex my-8 mx-auto gap-12">
         <div className=" w-2/3 grow-0 shrink flex flex-col gap-4">
-          <div className="">
+          <div className=" border-t border-b border-gray-500  py-2 ">
             <h2 className="text-xl font-bold mb-2">Description</h2>
             <p>{place.description}</p>
           </div>
-          <div>
+          <div className="border-b border-gray-500 pb-4">
             <span className="font-semibold">Check-In:</span>
             {place.checkIn}
             <br />
@@ -88,13 +88,13 @@ const PlacePage = () => {
         </div>
         <BookingForm place={place} />
       </div>
-      <div>
+      <div className="border-b border-gray-500  pb-4">
         <h2 className="text-xl font-bold mb-2">Extra Info</h2>
         {place.extraInfo}
       </div>
       <div>
         <h2 className="text-xl font-bold my-2">Perks</h2>
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap gap-2 border-b border-gray-500  pb-4">
           {place.perks.length > 0 &&
             place.perks.map((perk) => (
               <div className="border border-gray-400 rounded-xl px-6 font-semibold py-2 uppercase">

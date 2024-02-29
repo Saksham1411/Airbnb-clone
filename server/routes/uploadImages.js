@@ -3,10 +3,11 @@ const router = express.Router();
 const download = require('image-downloader');
 const multer = require('multer');
 const fs = require('fs');
+const { StatusCodes } = require('http-status-codes');
 
 router.post('/uploadByLink', async (req, res) => {
     const { link } = req.body;
-    // console.log(link);
+    if(!link) return res.status(StatusCodes.BAD_REQUEST).send('fill all the fields');
     const newName = Date.now()+'.jpg';
     options = {
         url: link,

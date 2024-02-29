@@ -6,13 +6,13 @@ import { differenceInCalendarDays, format } from "date-fns";
 const Review = ({ placeId }) => {
   const { user } = useContext(UserContext);
   const [content, setContent] = useState("");
-  const [loading,setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [reviews, setReviews] = useState("");
 
   async function submitHandler(e) {
     e.preventDefault();
     setLoading(true);
-    const {data} = await axios.post("/review", { placeId, content });
+    const { data } = await axios.post("/review", { placeId, content });
     // console.log(res);
     setContent("");
     setLoading(false);
@@ -51,12 +51,18 @@ const Review = ({ placeId }) => {
         {reviews.length > 0 &&
           reviews.map((review) => (
             <div className="border border-gray-400 rounded-2xl p-4 w-[47%]">
-              <h2 className="font-semibold text-xl"><i className="fa-solid fa-circle-user mr-2"></i>{review.userId.fullName}</h2>
-              <p className="my-2 text-wrap">{review.content}</p> 
-              <p className="text-xs">{differenceInCalendarDays(
+              <h2 className="font-semibold text-xl flex items-center gap-2">
+                <i className="fa-solid fa-circle-user text-gray-500"></i>
+                <p>{review.userId.fullName}</p>
+              </h2>
+              <p className="my-2 text-wrap">{review.content}</p>
+              <p className="text-xs">
+                {differenceInCalendarDays(
                   new Date(Date.now()),
                   new Date(review.createdAt)
-                )} Days ago</p>
+                )}{" "}
+                Days ago
+              </p>
             </div>
           ))}
       </div>
