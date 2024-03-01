@@ -37,7 +37,7 @@ router.get('/user-places', async (req, res) => {
 
     const places = await Places.find({ owner: userId });
 
-    res.status(StatusCodes.NETWORK_AUTHENTICATION_REQUIRED).send(places);
+    res.status(StatusCodes.OK).send(places);
 })
 
 router.get('/places/:placeId', async (req, res) => {

@@ -26,7 +26,7 @@ app.use('/',placeRoute);
 app.use('/',bookingRoute);
 app.use('/',reviewRoute);
 
-mongoose.connect('mongodb://127.0.0.1:27017/airBnB').then(()=>console.log('connected'));
+mongoose.connect(process.env.MONGO_URI).then(()=>console.log('connected'));
 
 app.listen(PORT,()=> console.log('working...'));
 
