@@ -1,5 +1,5 @@
-import Bookings from "@/components/Bookings";
-import Places from "@/components/Places";
+import Bookings from "@/components/booking/Bookings";
+import Places from "@/components/places/Places";
 import { UserContext } from "@/context/UserContext";
 import React, { useContext } from "react";
 import { Link, Navigate, useParams } from "react-router-dom";

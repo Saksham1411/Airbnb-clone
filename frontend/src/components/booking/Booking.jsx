@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { differenceInCalendarDays, format } from "date-fns";
-import ImageShowcase from "./ImageShowcase";
+import ImageShowcase from "../places/ImageShowcase";
 
 const Booking = () => {
   const [booking, setBookings] = useState(null);

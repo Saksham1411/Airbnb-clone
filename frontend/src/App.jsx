@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router-dom";
-import Header from "./components/Header";
+import Header from "./components/header/Header";
 import axios from "axios";
 import AccountPage from "./pages/AccountPage";
 import PlacePage from "./pages/PlacePage";

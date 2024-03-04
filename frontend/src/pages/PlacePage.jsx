@@ -1,6 +1,6 @@
-import BookingForm from "@/components/BookingForm";
-import ImageShowcase from "@/components/ImageShowcase";
-import Review from "@/components/Review";
+import BookingForm from "@/components/booking/BookingForm";
+import ImageShowcase from "@/components/places/ImageShowcase";
+import Review from "@/components/review/Review";
 import { UserContext } from "@/context/UserContext";
 import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";

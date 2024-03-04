@@ -7,10 +7,10 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import Login from "./Login";
+import Login from "../user/Login";
 import { createPortal } from "react-dom";
-import Backdrop from "./Backdrop";
-import Signin from "./Signin";
+import Backdrop from "../Backdrop";
+import Signin from "../user/Signin";
 import { UserContext } from "@/context/UserContext";
 import axios from "axios";
 import { Link } from "react-router-dom";
