@@ -46,7 +46,7 @@ const PlacePage = () => {
             place.photos.map((photo) => (
               <div className="flex justify-center">
                 <img
-                  src={import.meta.env.VITE_BACKEND + photo}
+                  src={photo}
                   alt=""
                   className="lg:max-w-[50%]"
                 />

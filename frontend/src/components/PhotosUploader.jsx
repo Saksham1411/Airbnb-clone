@@ -76,7 +76,8 @@ const PhotosUploader = ({
             <div key={link} className="h-32 flex  justify-center relative">
               <img
                 className="rounded-2xl w-full object-cover"
-                src={import.meta.env.VITE_BACKEND + link}
+                // src={import.meta.env.VITE_BACKEND + link}
+                src={link}
                 alt=""
               />
               <button

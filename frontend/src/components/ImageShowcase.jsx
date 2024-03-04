@@ -9,7 +9,7 @@ const ImageShowcase = ({setShowAllImages,place}) => {
             {place.photos?.[0] && (
               <img
                 className="object-cover max-h-96"
-                src={import.meta.env.VITE_BACKEND + place.photos[0]}
+                src={place.photos[0]}
                 alt=""
               />
             )}
@@ -18,14 +18,14 @@ const ImageShowcase = ({setShowAllImages,place}) => {
             {place.photos?.[1] && (
               <img
                 className=" object-cover max-h-48"
-                src={import.meta.env.VITE_BACKEND + place.photos[1]}
+                src={place.photos[1]}
                 alt=""
               />
             )}
             {place.photos?.[2] && (
               <img
                 className=" object-cover max-h-48"
-                src={import.meta.env.VITE_BACKEND + place.photos[2]}
+                src={place.photos[2]}
                 alt=""
               />
             )}

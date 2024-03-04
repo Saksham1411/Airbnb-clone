@@ -56,7 +56,7 @@ const Places = () => {
                 >
                   <div className="flex w-32 h-32 shrink-0">
                     <img
-                      src={import.meta.env.VITE_BACKEND + place.photos[0]}
+                      src={place.photos[0]}
                       alt=""
                       className="object-cover rounded-lg"
                     />

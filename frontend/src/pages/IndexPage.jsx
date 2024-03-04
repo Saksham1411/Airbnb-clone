@@ -18,7 +18,7 @@ const IndexPage = () => {
   {places.length > 0 && places.map((place) => 
     <Link to={'/places/'+place._id} className=" rounded-xl p-4 cursor-pointer">
       <div className="flex mb-2">
-        <img src={import.meta.env.VITE_BACKEND+place.photos[0]} className="rounded-xl object-cover aspect-square"/>
+        <img src={place.photos[0]} className="rounded-xl object-cover aspect-square"/>
       </div>
       <div className="font-bold">{place.address}</div>
       <div className="text-sm text-gray-500">{place.title}</div>
