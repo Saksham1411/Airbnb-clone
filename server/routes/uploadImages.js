@@ -1,36 +1,42 @@
 const express = require('express');
 const router = express.Router();
-const download = require('image-downloader');
 const multer = require('multer');
-const fs = require('fs');
 const { StatusCodes } = require('http-status-codes');
+const path = require('path');
+const DatauriParser = require('datauri/parser');
+
+const cloudinary = require('cloudinary').v2;
+
+cloudinary.config({
+    cloud_name: process.env.CLOUD_NAME,
+    api_key: process.env.CLOUD_API_KEY,
+    api_secret: process.env.CLOUD_API_SECRET
+});
 
 router.post('/uploadByLink', async (req, res) => {
     const { link } = req.body;
-    if(!link) return res.status(StatusCodes.BAD_REQUEST).send('fill all the fields');
-    const newName = Date.now()+'.jpg';
-    options = {
-        url: link,
-        dest: 'E:/web project/AirBnB-clone/server/uploads/'+Date.now()+'.jpg',
-    };
-    const filename = await download.image(options);
-    res.status(201).send('/uploads/'+newName);
+    if (!link) return res.status(StatusCodes.BAD_REQUEST).send('fill all the fields');
+
+    const result = await cloudinary.uploader.upload(link);
+    res.status(201).send(result.url);
 })
 
-const photosMiddleware = multer({dest:'uploads'});
+const storage = multer.memoryStorage();
 
-router.post('/upload',photosMiddleware.array('photos',100) ,async (req,res)=>{
-    // console.log(req.files);
+const photosMiddleware = multer({ storage });
+const parser = new DatauriParser();
+
+router.post('/upload', photosMiddleware.array('photos', 100), async (req, res) => {
     const uploadedFiles = [];
+
     for (let i = 0; i < req.files.length; i++) {
-        const{path,originalname} = req.files[i];
-        const parts = originalname.split('.');
-        const ext = parts[parts.length-1];
-        const newPath = path+'.'+ext;
-        fs.renameSync(path,newPath);
-        uploadedFiles.push(newPath.replace('uploads\\','/uploads/'));
+        const extName = path.extname(req.files[i].originalname).toString();
+        const file = parser.format(extName, req.files[i].buffer);
+        
+        const result = await cloudinary.uploader.upload(file.content);
+        uploadedFiles.push(result.url);
     }
-    res.send(uploadedFiles);
+    res.status(201).send(uploadedFiles);
 })
 
 module.exports = router;
