@@ -1,19 +1,25 @@
-import {UserContext} from "../../context/UserContext.jsx";
+import { UserContext } from "../../context/UserContext.jsx";
 import axios from "axios";
 import React, { useContext, useState } from "react";
+import toast from "react-hot-toast";
+import Loader from "../ui/Loader.jsx";
 
 const Login = ({ onClose, onSignin }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const {setUser} = useContext(UserContext);
-  async function submitHandler(e){
+  const [loading, setLoading] = useState(false);
+  const { setUser } = useContext(UserContext);
+  async function submitHandler(e) {
     try {
       e.preventDefault();
-      const res = await axios.post('/login',{email,password});
+      setLoading(true);
+      const res = await axios.post("/login", { email, password });
       const data = await res.data.user;
+      setLoading(false);
       setUser(data);
       onClose(false);
     } catch (error) {
+      toast.error(error.message);
       console.log(error);
     }
   }
@@ -43,20 +49,24 @@ const Login = ({ onClose, onSignin }) => {
           placeholder="Email"
           className="border border-black rounded-md h-10 px-2 text-lg"
           value={email}
-          onChange={(e)=>setEmail(e.target.value)}
+          onChange={(e) => setEmail(e.target.value)}
         />
         <input
           type="password"
           placeholder="Password"
           className="border border-black rounded-md h-10 px-2 text-lg"
           value={password}
-          onChange={(e)=>setPassword(e.target.value)}
+          onChange={(e) => setPassword(e.target.value)}
         />
         <button
           type="submit"
           className="rounded-md h-10 w-1/2 text-lg bg-primary outline-none text-white font-bold"
         >
-          Login
+          {loading ? (
+            <Loader/>
+            ) : (
+            "Login"
+          )}
         </button>
       </form>
       <span

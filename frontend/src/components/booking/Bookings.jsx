@@ -3,13 +3,18 @@ import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { differenceInCalendarDays, format } from "date-fns";
 import Booking from "./Booking";
+import { Skeleton } from "../ui/skeleton";
 
 const Bookings = () => {
   const [bookings, setBookings] = useState([]);
+  const [loading, setLoading] = useState(false);
+
   useEffect(() => {
     const getBookings = async () => {
+      setLoading(true);
       const { data } = await axios.get("/booking");
       setBookings(data);
+      setLoading(false);
     };
 
     getBookings();
@@ -18,7 +23,14 @@ const Bookings = () => {
   console.log("actions", action);
   return (
     <>
-      {action === undefined && (
+      {loading && action === undefined && (
+        <div className="flex flex-col gap-4 items-center my-12">
+          {[...Array(3)].map((x) => (
+            <Skeleton className="h-32 w-[40rem]" />
+          ))}
+        </div>
+      )}
+      {!loading && action === undefined && (
         <div className="flex flex-col gap-4 items-center my-12">
           {bookings.length > 0 &&
             bookings.map((booking) => (

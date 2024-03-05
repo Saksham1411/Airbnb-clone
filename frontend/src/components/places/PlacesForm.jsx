@@ -3,6 +3,7 @@ import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
 import Perks from "./Perks";
 import axios from "axios";
 import PhotosUploader from "./PhotosUploader";
+import Loader from "../ui/Loader";
 const PlacesForm = () => {
   const { action } = useParams();
 
@@ -15,14 +16,15 @@ const PlacesForm = () => {
   const [extraInfo, setExtraInfo] = useState("");
   const [checkIn, setcheckIn] = useState("");
   const [checkOut, setCheckOut] = useState("");
-  const [maxGuests, setMaxGuests] = useState(1); 
-  const [price, setPrice] = useState(100); 
+  const [maxGuests, setMaxGuests] = useState(1);
+  const [price, setPrice] = useState(100);
   const [redirect, setRedirect] = useState("");
+  const [loading, setLoading] = useState(false);
 
   if (action != "new") {
     useEffect(() => {
       const getData = async () => {
-        const {data} = await axios.get("/places/"+action);
+        const { data } = await axios.get("/places/" + action);
         console.log(data);
         setTitle(data.title);
         setAddress(data.address);
@@ -52,19 +54,18 @@ const PlacesForm = () => {
       checkIn,
       checkOut,
       maxGuests,
-      price
+      price,
     };
-
-    if (action!='new') {
-      const {data} = await axios.put(`/places/${action}`,reqBody);
+    setLoading(true);
+    if (action != "new") {
+      const { data } = await axios.put(`/places/${action}`, reqBody);
       console.log(data);
-      
-    }else{
+    } else {
       const { data } = await axios.post("/places", reqBody);
     }
+    setLoading(false);
     setRedirect("/account/places");
   };
-
 
   if (redirect) {
     return <Navigate to={"/account/places"} />;
@@ -175,7 +176,11 @@ const PlacesForm = () => {
           type="submit"
           className="mt-4 py-2 px-4 bg-primary rounded-full text-white"
         >
-          Save
+          {loading ? (
+            <Loader/>
+            ) : (
+            "Save"
+          )}
         </button>
       </form>
     </>

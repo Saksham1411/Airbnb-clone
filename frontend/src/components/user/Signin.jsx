@@ -1,6 +1,7 @@
 import { UserContext } from "@/context/UserContext";
 import axios from "axios";
 import React, { useContext, useState } from "react";
+import Loader from "../ui/Loader";
 
 const Signin = ({ onClose, onLogin }) => {
   const [email, setEmail] = useState("");
@@ -66,7 +67,11 @@ const Signin = ({ onClose, onLogin }) => {
           type="submit"
           className="rounded-md h-10 w-1/2 text-lg bg-primary outline-none text-white font-bold"
         >
-          Signin
+          {loading ? (
+            <Loader/>
+            ) : (
+            "Signin"
+          )}
         </button>
       </form>
       <span

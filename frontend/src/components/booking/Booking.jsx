@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { differenceInCalendarDays, format } from "date-fns";
 import ImageShowcase from "../places/ImageShowcase";
+import { Skeleton } from "../ui/skeleton";
 
 const Booking = () => {
   const [booking, setBookings] = useState(null);
@@ -21,7 +22,14 @@ const Booking = () => {
   }, []);
   return (
     <>
-      {booking && (
+    {loading && (
+      <div  className="my-4 px-8 pt-8 flex flex-col gap-4 m-auto w-fit">
+        <Skeleton className="h-14 lg:w-96 md:w-64"/>
+        <Skeleton className="h-14 lg:w-[35rem] md:w-96"/>
+        <Skeleton className="h-64 lg:w-[40rem] md:w-[35rem]"/>
+      </div>
+    )}
+      {!loading && booking && (
         <div className="my-4 px-8 pt-8 flex flex-col gap-2 m-auto w-fit">
           <h1 className="text-3xl">{booking.place.title}</h1>
           <a
@@ -57,8 +65,8 @@ const Booking = () => {
           </div>
           <ImageShowcase place={booking.place}></ImageShowcase>
         </div>
-
       )}
+      
     </>
   );
 };
