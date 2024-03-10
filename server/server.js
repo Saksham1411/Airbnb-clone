@@ -8,6 +8,7 @@ const imageRoute = require('./routes/uploadImages');
 const placeRoute = require('./routes/places');
 const reviewRoute = require('./routes/reviews');
 const bookingRoute = require('./routes/booking');
+const paymentRoute = require('./routes/stripeCheckout');
 const cookieParser = require('cookie-parser');
 
 const app = express();
@@ -24,6 +25,7 @@ app.use('/',userRoutes);
 app.use('/',imageRoute);
 app.use('/',placeRoute);
 app.use('/',bookingRoute);
+app.use('/',paymentRoute);
 app.use('/',reviewRoute);
 
 mongoose.connect(process.env.MONGO_URI).then(()=>console.log('connected'));

@@ -44,7 +44,7 @@ const PlacePage = () => {
             >
               {" "}
               <span className="text-md">
-                <i class="fa-solid fa-x"></i>
+                <i className="fa-solid fa-x"></i>
               </span>{" "}
               Close photo
             </button>
@@ -103,7 +103,7 @@ const PlacePage = () => {
             <div className="flex flex-wrap gap-2 border-b border-gray-500  pb-4">
               {place.perks.length > 0 &&
                 place.perks.map((perk) => (
-                  <div className="border border-gray-400 rounded-xl px-6 font-semibold py-2 uppercase">
+                  <div key={perk} className="border border-gray-400 rounded-xl px-6 font-semibold py-2 uppercase">
                     {perk}
                   </div>
                 ))}

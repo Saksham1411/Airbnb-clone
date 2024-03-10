@@ -3,6 +3,7 @@ import { differenceInCalendarDays } from "date-fns";
 import { UserContext } from "@/context/UserContext";
 import axios from "axios";
 import { Navigate } from "react-router-dom";
+import { loadStripe } from "@stripe/stripe-js";
 
 const BookingForm = ({ place }) => {
   const [checkIn, setCheckIn] = useState("");
@@ -10,7 +11,6 @@ const BookingForm = ({ place }) => {
   const [numberOfGuests, setNumberOfGuests] = useState(1);
   const [name, setName] = useState("");
   const [mobile, setMobile] = useState("");
-  const [redirect, setRedirect] = useState("");
   const { user } = useContext(UserContext);
 
   useEffect(() => {
@@ -18,7 +18,6 @@ const BookingForm = ({ place }) => {
       setName(user.fullName);
     }
   }, []);
-  
 
   let numberOfNights = 0;
   if (checkIn && checkOut) {
@@ -30,6 +29,7 @@ const BookingForm = ({ place }) => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
+
     const res = await axios.post("/booking", {
       checkIn,
       checkOut,
@@ -39,13 +39,21 @@ const BookingForm = ({ place }) => {
       place: place._id,
       price: numberOfNights * place.price,
     });
-    const bookingId = await res.data._id;
-    setRedirect('/account/bookings/'+bookingId);
-  };
 
-  if(redirect){
-    return <Navigate to={redirect}/>
-  }
+    const stripe = await loadStripe(import.meta.env.VITE_STRIPE_KEY);
+    // console.log(stripe);
+    const reqBody = {
+      title: place.title,
+      price: numberOfNights * place.price,
+      image: place.photos?.[0],
+    };
+    const response = await axios.post("/stripe-checkout", reqBody);
+    // console.log(res.data);
+    const session = response.data;
+    const result = stripe.redirectToCheckout({
+      sessionId: session.id,
+    });
+  };
 
   return (
     <>
@@ -116,9 +124,9 @@ const BookingForm = ({ place }) => {
             </button>
           )}
           {!user && (
-            <button className="px-4 py-2 bg-primary rounded-2xl text-white">
+            <div className="px-4 py-2 text-center bg-primary rounded-2xl text-white">
               Login to continue
-            </button>
+            </div>
           )}
         </form>
       </div>
