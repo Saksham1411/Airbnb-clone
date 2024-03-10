@@ -12,6 +12,7 @@ const BookingForm = ({ place }) => {
   const [name, setName] = useState("");
   const [mobile, setMobile] = useState("");
   const { user } = useContext(UserContext);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (user) {
@@ -29,6 +30,7 @@ const BookingForm = ({ place }) => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     const res = await axios.post("/booking", {
       checkIn,
@@ -49,6 +51,7 @@ const BookingForm = ({ place }) => {
     };
     const response = await axios.post("/stripe-checkout", reqBody);
     // console.log(res.data);
+    setLoading(false);
     const session = response.data;
     const result = stripe.redirectToCheckout({
       sessionId: session.id,
@@ -112,7 +115,7 @@ const BookingForm = ({ place }) => {
               </div>
             </>
           )}
-          {user && (
+          {!loading && user && (
             <button
               type="submit"
               className="px-4 py-2 bg-primary rounded-2xl text-white"
@@ -123,9 +126,14 @@ const BookingForm = ({ place }) => {
               )}
             </button>
           )}
-          {!user && (
+          {!loading && !user && (
             <div className="px-4 py-2 text-center bg-primary rounded-2xl text-white">
               Login to continue
+            </div>
+          )}
+          {loading && (
+            <div className="px-4 py-2 text-center bg-primary rounded-2xl text-white">
+              <Loader />
             </div>
           )}
         </form>
