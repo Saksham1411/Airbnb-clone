@@ -42,7 +42,7 @@ This project is a clone of the popular Airbnb platform, providing a similar expe
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/your-username/airbnb-clone.git
+   git clone https://github.com/Saksham1411/Airbnb-clone.git
 ## Installation
 
 1. **Navigate to the project directory:**
@@ -51,13 +51,13 @@ This project is a clone of the popular Airbnb platform, providing a similar expe
     cd airbnb-clone
     ```
 
-2. **Install dependencies:**
+2. **Install dependencies in both frontend and server folder:**
 
     ```bash
     npm install
     ```
 
-## Configuration
+## Configuration for server
 
 1. **Set up MongoDB:**
     - Create a MongoDB database.
@@ -71,15 +71,35 @@ This project is a clone of the popular Airbnb platform, providing a similar expe
     - Create a Cloudinary account.
     - Obtain your API credentials and update them in the `.env` file.
 
+4. **Set up JWT SECRET:**
+
+5. **Set up FRONTEND:**
+    - http://localhost:5173
+
+## Configuration for frontend
+
+1. **Set up Stripe:**
+    - Create a Stripe account.
+    - Get your API keys and update them in the `.env` file.
+
+2. **Set up Backend**
+    - http://localhost:4000
+
+
 ## Usage
 
-1. **Start the development server:**
+1. **Start the server:**
+
+    ```bash
+    npm start
+    ```
+2. **Start the frontend:**
 
     ```bash
     npm run dev
     ```
 
-2. **Open your browser and navigate to `http://localhost:3000` to view the application.**
+2. **Open your browser and navigate to `http://localhost:5173` to view the application.**
 
 ## Contributing
 
